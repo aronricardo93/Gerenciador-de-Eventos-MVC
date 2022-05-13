@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content">
+<img class="admin" alt="img-admin" src="./assets/admin.png" >
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="card text-light bg-black mb-3" style="max-width: 25rem;" th:each="evento : ${listaevento}">
+  <div class="card-header" th:switch="${evento.generoMusical}">
+  		<span th:case="'Gospel'"><td><img th:src="@{./assets/genero-img/gospel.jpg}" height="250px" width="320px"   /></td></span>
+			<span th:case="'MPB'"><td><img th:src="@{./assets/genero-img/mpb.jpg}" height="250px" width="320px" /></td></span>
+			<span th:case="'Jazz'"><td><img th:src="@{./assets/genero-img/jazz.jpg}" height="250px" width="320px" /></td></span>
+			<span th:case="'Rock'"><td><img th:src="@{./assets/genero-img/rock.jpg}" height="250px" width="320px" /></td></span>
+			<span th:case="'Pagode'"><td><img th:src="@{./assets/genero-img/pagode.jpg}" height="250px" width="320px" /></td></span>
+			<span th:case="'Sertanejo'"><td><img th:src="@{./assets/genero-img/sertanejo.png}" height="250px" width="320px" /></td></span>
+			<span th:case="'Pop'"><td><img th:src="@{./assets/genero-img/pop.jpg}" height="250px" width="320px" /></td></span>
+			<span th:case="'Funk'"><td><img th:src="@{./assets/genero-img/funk.jpg}" height="250px" width="320px" /></td></span>
+			<span th:case="'Samba'"><td><img th:src="@{./assets/genero-img/samba.jpg}" height="250px" width="320px" /></td></span>
+  </div>
+  <div class="card-body" >
+    <h5 class="card-title" style="text-align: center;" th:text="${evento.nome}"></h5>
+   
+    <div class="row">
+    	<div class="col">
+    		<label>Preço do Ingresso:</label>
+    	</div>
+    	<div class="col">	
+    		<p th:text="'R$' + ${#numbers.formatDecimal(evento.precoDoIngresso, 1, 'POINT', 2, 'COMMA')}"></p>
+    	</div>
+    </div>
+    <div class="row">
+    	<div class="col">
+    		<label>Data:</label>
+    	</div>
+    	<div class="col">	
+    		<p th:text="${evento.data}"></p>
+    	</div>
+    </div>
+        <div class="row">
+    	<div class="col">
+    		<label>Gênero: </label>
+    	</div>
+    	<div class="col">	
+    		<p th:text="${evento.generoMusical}"></p>
+    	</div>
+    </div>
+    <div class="row">
+    	<div class="col">
+    		<label>Local:</label>
+    	</div>
+    	<div class="col">	
+    		<p th:text="${evento.casaDeshow.nome}"></p>
+    	</div>
+    </div>
+   </div>
+    <div class="card-footer">
+      	<label>Ingressos Restantes:</label><b><small th:text="${evento.capacidade}"></small></b>
+   	</div>
+  </div>
+</div>
+
+</div>
+</html>

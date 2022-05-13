@@ -1,0 +1,5 @@
+INSERT INTO casa_de_show(endereco,nome) VALUES('Rua Kemuel, Nº 15, Salvador-BA, 123456-000','WorShip House')
+INSERT INTO casa_de_show(endereco,nome) VALUES('Rua Lambda , Nº i++, ilha do Java-BA, 111222-000','Loop Dance')
+INSERT INTO evento(capacidade, data, genero_musical, nome, preco_do_ingresso, casa_deshow_id) VALUES('60', '2022-05-11', 'MPB', 'Starter Fest', '0', '2')
+INSERT INTO evento(capacidade, data, genero_musical, nome, preco_do_ingresso, casa_deshow_id) VALUES('5000', '2022-09-18', 'Gospel', 'Show de Midiam Lima', '35', '1')
+INSERT INTO evento(capacidade, data, genero_musical, nome, preco_do_ingresso, casa_deshow_id) VALUES('1575', '2023-07-28', 'Rock', 'Banda JDK', '200', '2')

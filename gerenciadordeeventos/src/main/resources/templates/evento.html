@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content">
+	<img class="eventoTitulo" alt="evento-img" src="./assets/evento.png">
+<div class="alert alert-primary" th:if="${mensagem != null}" th:text="${mensagem}"></div>
+
+	<div class="card text-white bg-dark"
+		style="max-width: 35rem; margin: 30px; margin-left: 280px">
+		<div class="card-header mb-3">Novo Evento</div>
+		<div class="card-body">
+			<form id="form-evento" method="POST" th:object="${evento}"
+				th:action="@{/evento}">
+				<input type="hidden" th:field="*{id}">
+				<div class="row">
+					<div class="col">
+						<label for="evento">Evento:</label> <input style="width: 300px"
+							type="text" class="form-control" th:field="*{nome}" required>
+					</div>
+					<div class="col">
+						<label for="data">Data:</label> <input style="width: 170px"
+							type="date" class="form-control" th:field="*{data}" required>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<label for="capacidade">Capacidade:</label> <input
+							style="width: 300px" type="number" class="form-control"
+							width="20px" th:field="*{capacidade}" required>
+					</div>
+					<div class="col">
+						<label for="valoringresso">Valor do ingresso:</label> <input
+							style="width: 170px" type="number" class="form-control"
+							placeholder="Ex.: 200,00" th:field=*{precoDoIngresso} required>
+					</div>
+				</div>
+
+				<div class="form-group mb-3" style="padding-top: 25px">
+					<select th:field="${evento.casaDeshow}" required>
+						<option th:each="casa : ${listacasa}" th:value="${casa.id}"
+							th:text="${casa.nome}"></option>
+					</select> <select th:field="${evento.generoMusical}" required>
+						<option th:value="Gospel">Gospel</option>
+						<option th:value="MPB">MPB</option>
+						<option th:value="Jazz">Jazz</option>
+						<option th:value="Rock">Rock</option>
+						<option th:value="Pagode">Pagode</option>
+						<option th:value="Sertanejo">Sertanejo</option>
+						<option th:value="Pop">Pop</option>
+						<option th:value="Funk">Funk</option>
+						<option th:value="Samba">Samba</option>
+					</select>
+				</div>
+				<button id="btn-enviar" type="submit" class="btn btn-primary"
+					style="margin-top: 15px">Enviar</button>
+			</form>
+		</div>
+	</div>
+	<table class="table table-dark table-hover">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Capacidade</th>
+				<th>Preço Do Ingresso</th>
+				<th>Casa De Show</th>
+				<th>Gênero Musical</th>
+				<th>Imagem</th>
+				<th>Editar</th>
+				<th>Deletar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="evento : ${listaevento}">
+				<td th:text="${evento.id}"></td>
+				<td th:text="${evento.nome}"></td>
+				<td th:text="${evento.capacidade}"></td>
+				<td
+					th:text="'R$' + ${#numbers.formatDecimal(evento.precoDoIngresso, 1, 'POINT', 2, 'COMMA')}"></td>
+				<td th:text="${evento.casaDeshow.nome}"></td>
+				<td th:text="${evento.generoMusical}"></td>
+				<div th:switch="${evento.generoMusical}">
+					<span th:case="'Gospel'"><td><img
+							th:src="@{./assets/genero-img/gospel.jpg}" height="80px"
+							width="80px" /></td></span> <span th:case="'MPB'"><td><img
+							th:src="@{./assets/genero-img/mpb.jpg}" height="80px"
+							width="80px" /></td></span> <span th:case="'Jazz'"><td><img
+							th:src="@{./assets/genero-img/jazz.jpg}" height="80px"
+							width="80px" /></td></span> <span th:case="'Rock'"><td><img
+							th:src="@{./assets/genero-img/rock.jpg}" height="80px"
+							width="80px" /></td></span> <span th:case="'Pagode'"><td><img
+							th:src="@{./assets/genero-img/pagode.jpg}" height="80px"
+							width="80px" /></td></span> <span th:case="'Sertanejo'"><td><img
+							th:src="@{./assets/genero-img/sertanejo.png}" height="80px"
+							width="80px" /></td></span> <span th:case="'Pop'"><td><img
+							th:src="@{./assets/genero-img/pop.jpg}" height="80px"
+							width="80px" /></td></span> <span th:case="'Funk'"><td><img
+							th:src="@{./assets/genero-img/funk.jpg}" height="80px"
+							width="80px" /></td></span> <span th:case="'Samba'"><td><img
+							th:src="@{./assets/genero-img/samba.jpg}" height="80px"
+							width="80px" /></td></span>
+				</div>
+				<td><a class="btn btn-primary btn-sm"
+					th:href="@{/evento(id=${evento.id})}">Editar</a></td>
+				<td><a class="btn btn-danger btn-sm"
+					th:href="@{/evento/deletar(id=${evento.id})}"
+					onclick="return confirm('Você realmente deseja deletar esse item?')">Deletar</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<div class="alert alert-danger " th:if="${#lists.isEmpty(listacasa)}">
+		<h5 align="center">Para cadastrar um evento é necessário ter pelo
+			menos uma casa de show cadastrada!</h5>
+		<style>
+#btn-enviar {
+	opacity: 0.6;
+	cursor: not-allowed;
+	background-color: gray;
+	border: none;
+}
+
+#form-evento input {
+	pointer-events: none;
+	outline: none;
+	text-indent: -9999px;
+	background-color: gray;
+	border: none;
+}
+
+select {
+	visibility: hidden;
+}
+</style>
+	</div>
+
+</div>
+</html>

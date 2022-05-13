@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content">
+	
+	<img class="casaTitulo" alt="casa-img" src="./assets/casa.png">
+	<div class="alert alert-danger" th:if="${mensagemErro != null}" th:text="${mensagemErro}"></div>
+	<div class="alert alert-primary" th:if="${mensagemSucesso != null}" th:text="${mensagemSucesso}"></div>
+	<div class="card text-white bg-dark"
+		style="max-width: 35rem; margin: 30px; margin-left: 280px">
+		<div class="card-header mb-3">Novo Cadastro</div>
+		<div class="card-body">
+			<form method="POST" th:object="${novacasa}" th:action="@{/casadeshow}">
+				<input type="hidden" th:field="*{id}">
+				<div class="form-group mb-3">
+					<label for="casadeshow">Casa de Show:</label> <input type="text"
+						class="form-control" th:field="*{nome}" required>
+				</div>
+				<div class="form-group mb-3">
+					<label for="endereco">Endereço:</label> <input type="text"
+						class="form-control" th:field="*{endereco}" required>
+				</div>
+				<button type="submit" class="btn btn-primary">Enviar</button>
+			</form>
+		</div>
+	</div>
+	<table class="table table-dark table-hover">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>NOME</th>
+				<th>ENDEREÇO</th>
+				<th>EDITAR</th>
+				<th>DELETAR</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="casadeshow : ${lista}">
+				<td th:text="${casadeshow.id}"></td>
+				<td th:text="${casadeshow.nome}"></td>
+				<td th:text="${casadeshow.endereco}"></td>
+				<td><a class="btn btn-primary btn-sm" th:href="@{/casadeshow(id=${casadeshow.id})}">Editar</a></td>
+				<td><a class="btn btn-danger btn-sm"
+						th:href="@{/excluir(id=${casadeshow.id})}"
+						onclick="return confirm('Você realmente deseja deletar esse item?')">Deletar</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</html>
