@@ -9,13 +9,13 @@
 
 ##### O Sistema foi construído com:
 > - Java 17
-- Spring Tool Suite(Eclipse)
-- Spring Data, JPA, Security, MVC
-- Thymeleaf
-- Html e CSS
-- Bootstrap
-- Maven
-- MySQL Workbench
+> - Spring Tool Suite(Eclipse)
+> - Spring Data, JPA, Security, MVC
+> - Thymeleaf
+> - Html e CSS
+> - Bootstrap
+> - Maven
+> - MySQL Workbench
 
 ##### Para ter acesso ao sistema e realizar os CRUDs das casas de shows e eventos deve logar como admin:
 
